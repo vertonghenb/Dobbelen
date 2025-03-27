@@ -1,16 +1,26 @@
-import Dobbelsteen from "./Dobbelsteen.js";
+import Speler from "./Speler.js";
 
 export default class AfrikaansDobbelen {
-    #dobbelsteen;
+    #speler;
 
     constructor() {
-        this.#dobbelsteen = new Dobbelsteen();
+        this.#speler = new Speler('Kirikou')
+
+        document.getElementById('play').onclick = () => {
+            this.#speler.speel();
+            this.#toHtml();
+        }
         this.#toHtml();
     }
 
     #toHtml() {
-        const imgElement = document.getElementById('1');
-        imgElement.src = `images/Dice${this.#dobbelsteen.aantalOgen}.png`;
+        const { naam, score, dobbelstenen } = this.#speler;
+        for (let index = 0; index < Speler.aantalDobbelstenen; index++) {
+            const aantal = dobbelstenen[index].aantalOgen;
+            document.getElementById(index + 1).src = `images/Dice${aantal}.png`;
+        }
+        document.getElementById('speler').innerText = `Naam: ${naam}`
+        document.getElementById('score').innerText = `Score: ${score}`
     }
 }
 
